@@ -29,7 +29,10 @@ repositories {
         name = "CurseForgeMaven"
         url = uri("https://cursemaven.com")
     }
-    mavenCentral()
+    maven{
+        name = "Local"
+        url = uri("https://raw.githubusercontent.com/yiyuyan/SimpleMavenRepo/refs/heads/master/")
+    }
     mavenLocal()
 }
 

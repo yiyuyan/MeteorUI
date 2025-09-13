@@ -61,5 +61,10 @@
       <option name="name" value="CurseForgeMaven" />
       <option name="url" value="https://cursemaven.com" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="Local" />
+      <option name="name" value="Local" />
+      <option name="url" value="https://raw.githubusercontent.com/yiyuyan/SimpleMavenRepo/refs/heads/master/" />
+    </remote-repository>
   </component>
 </project>
