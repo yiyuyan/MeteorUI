@@ -5,12 +5,7 @@
 
 package meteordevelopment.meteorclient.utils.notebot.decoder;
 
-import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.misc.Notebot;
-import meteordevelopment.meteorclient.utils.notebot.NotebotUtils;
-import meteordevelopment.meteorclient.utils.notebot.song.Note;
 import meteordevelopment.meteorclient.utils.notebot.song.Song;
-import net.minecraft.block.enums.NoteBlockInstrument;
 import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,7 +51,7 @@ public class SongDecoders {
         SongDecoder decoder = getDecoder(file);
         Song song = decoder.parse(file);
 
-        fixSong(song);
+        /*fixSong(song);*/
 
         song.finishLoading();
 
@@ -67,7 +62,7 @@ public class SongDecoders {
      * This method adapts {@link Song} to settings in Notebot module
      *
      * @param song A song
-     */
+     *//*
     private static void fixSong(Song song) {
         Notebot notebot = Modules.get().get(Notebot.class);
 
@@ -97,5 +92,5 @@ public class SongDecoders {
                 note.setInstrument(null);
             }
         }
-    }
+    }*/
 }

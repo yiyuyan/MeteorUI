@@ -10,25 +10,17 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPipeline;
 import io.netty.handler.proxy.Socks4ProxyHandler;
 import io.netty.handler.proxy.Socks5ProxyHandler;
-import io.netty.handler.timeout.TimeoutException;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.events.world.ServerConnectEndEvent;
-import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.misc.AntiPacketKick;
-import meteordevelopment.meteorclient.systems.modules.world.HighwayBuilder;
 import meteordevelopment.meteorclient.systems.proxies.Proxies;
 import meteordevelopment.meteorclient.systems.proxies.Proxy;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.NetworkSide;
-import net.minecraft.network.handler.PacketEncoderException;
 import net.minecraft.network.handler.PacketSizeLogger;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BundleS2CPacket;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -51,7 +43,7 @@ public abstract class ClientConnectionMixin {
         } else if (MeteorClient.EVENT_BUS.post(new PacketEvent.Receive(packet, (ClientConnection) (Object) this)).isCancelled()) ci.cancel();
     }
 
-    @Inject(method = "disconnect(Lnet/minecraft/text/Text;)V", at = @At("HEAD"))
+    /*@Inject(method = "disconnect(Lnet/minecraft/text/Text;)V", at = @At("HEAD"))
     private void disconnect(Text disconnectReason, CallbackInfo ci) {
         if (Modules.get().get(HighwayBuilder.class).isActive()) {
             MutableText text = Text.literal("%n%n%s[%sHighway Builder%s] Statistics:%n".formatted(Formatting.GRAY, Formatting.BLUE, Formatting.GRAY));
@@ -59,7 +51,7 @@ public abstract class ClientConnectionMixin {
 
             ((MutableText) disconnectReason).append(text);
         }
-    }
+    }*/
 
     @Inject(method = "connect(Ljava/net/InetSocketAddress;ZLnet/minecraft/network/ClientConnection;)Lio/netty/channel/ChannelFuture;", at = @At("HEAD"))
     private static void onConnect(InetSocketAddress address, boolean useEpoll, ClientConnection connection, CallbackInfoReturnable<?> cir) {
@@ -78,14 +70,14 @@ public abstract class ClientConnectionMixin {
         MeteorClient.EVENT_BUS.post(new PacketEvent.Sent(packet, (ClientConnection) (Object) this));
     }
 
-    @Inject(method = "exceptionCaught", at = @At("HEAD"), cancellable = true)
+    /*@Inject(method = "exceptionCaught", at = @At("HEAD"), cancellable = true)
     private void exceptionCaught(ChannelHandlerContext context, Throwable throwable, CallbackInfo ci) {
         AntiPacketKick apk = Modules.get().get(AntiPacketKick.class);
         if (!(throwable instanceof TimeoutException) && !(throwable instanceof PacketEncoderException) && apk.catchExceptions()) {
             if (apk.logExceptions.get()) apk.warning("Caught exception: %s", throwable);
             ci.cancel();
         }
-    }
+    }*/
 
     @Inject(method = "addHandlers", at = @At("RETURN"))
     private static void onAddHandlers(ChannelPipeline pipeline, NetworkSide side, boolean local, PacketSizeLogger packetSizeLogger, CallbackInfo ci) {

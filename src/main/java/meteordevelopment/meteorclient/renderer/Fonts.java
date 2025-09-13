@@ -51,11 +51,16 @@ public class Fonts {
 
         MeteorClient.LOG.info("Found {} font families.", FONT_FAMILIES.size());
 
-        DEFAULT_FONT_FAMILY = FontUtils.getBuiltinFontInfo(BUILTIN_FONTS[1]).family();
-        DEFAULT_FONT = getFamily(DEFAULT_FONT_FAMILY).get(FontInfo.Type.Regular);
+        try {
+            DEFAULT_FONT_FAMILY = FontUtils.getBuiltinFontInfo(BUILTIN_FONTS[1]).family();
+            DEFAULT_FONT = getFamily(DEFAULT_FONT_FAMILY).get(FontInfo.Type.Regular);
 
-        Config config = Config.get();
-        load(config != null ? config.font.get() : DEFAULT_FONT);
+            Config config = Config.get();
+            load(config != null ? config.font.get() : DEFAULT_FONT);
+        } catch (Exception e) {
+            DEFAULT_FONT_FAMILY = "";
+            MeteorClient.LOG.error("Error in loading fonts.",e);
+        }
     }
 
     public static void load(FontFace fontFace) {

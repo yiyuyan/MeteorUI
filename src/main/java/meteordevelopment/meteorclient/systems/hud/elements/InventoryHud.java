@@ -85,7 +85,7 @@ public class InventoryHud extends HudElement {
         calculateSize();
     }
 
-    @Override
+   /* @Override
     public void render(HudRenderer renderer) {
         double x = this.x, y = this.y;
 
@@ -115,7 +115,7 @@ public class InventoryHud extends HudElement {
                 }
             }
         });
-    }
+    }*/
 
     private void calculateSize() {
         setSize(background.get().width * getScale(), background.get().height * getScale());

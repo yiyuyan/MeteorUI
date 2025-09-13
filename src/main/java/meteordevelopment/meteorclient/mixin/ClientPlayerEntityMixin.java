@@ -5,17 +5,11 @@
 
 package meteordevelopment.meteorclient.mixin;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.mojang.authlib.GameProfile;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.entity.DropItemsEvent;
 import meteordevelopment.meteorclient.events.entity.player.PlayerTickMovementEvent;
 import meteordevelopment.meteorclient.events.entity.player.SendMovementPacketsEvent;
-import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.movement.*;
-import meteordevelopment.meteorclient.systems.modules.player.Portals;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.input.Input;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -41,7 +35,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         if (MeteorClient.EVENT_BUS.post(DropItemsEvent.get(getMainHandStack())).isCancelled()) info.setReturnValue(false);
     }
 
-    @ModifyExpressionValue(method = "tickNausea", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;"))
+    /*@ModifyExpressionValue(method = "tickNausea", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;"))
     private Screen modifyNauseaCurrentScreen(Screen original) {
         if (Modules.get().isActive(Portals.class)) return null;
         return original;
@@ -78,7 +72,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     private float onHunger(float constant) {
         if (Modules.get().get(NoSlow.class).hunger()) return -1;
         return constant;
-    }
+    }*/
 
     /*
     @ModifyExpressionValue(method = "sendSneakingPacket", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSneaking()Z"))
@@ -94,7 +88,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 
     // Sprint
 
-    @ModifyExpressionValue(method = "canStartSprinting", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/input/Input;hasForwardMovement()Z"))
+    /*@ModifyExpressionValue(method = "canStartSprinting", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/input/Input;hasForwardMovement()Z"))
     private boolean modifyIsWalking(boolean original) {
         if (!Modules.get().get(Sprint.class).rageSprint()) return original;
 
@@ -116,7 +110,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         Sprint s = Modules.get().get(Sprint.class);
 
         return !s.rageSprint() || s.unsprintInWater() && isTouchingWater();
-    }
+    }*/
 
     // Rotations
 

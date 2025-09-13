@@ -5,27 +5,18 @@
 
 package meteordevelopment.meteorclient.mixin;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.render.Render2DEvent;
-import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.misc.BetterChat;
-import meteordevelopment.meteorclient.systems.modules.render.Freecam;
-import meteordevelopment.meteorclient.systems.modules.render.NoRender;
 import meteordevelopment.meteorclient.utils.Utils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.entity.Entity;
-import net.minecraft.scoreboard.ScoreboardObjective;
 import net.minecraft.util.profiler.Profilers;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(InGameHud.class)
 public abstract class InGameHudMixin {
@@ -47,7 +38,7 @@ public abstract class InGameHudMixin {
         Profilers.get().pop();
     }
 
-    @Inject(method = "renderStatusEffectOverlay", at = @At("HEAD"), cancellable = true)
+    /*@Inject(method = "renderStatusEffectOverlay", at = @At("HEAD"), cancellable = true)
     private void onRenderStatusEffectOverlay(CallbackInfo info) {
         if (Modules.get().get(NoRender.class).noPotionIcons()) info.cancel();
     }
@@ -117,5 +108,5 @@ public abstract class InGameHudMixin {
     @Inject(method = "renderNauseaOverlay", at = @At("HEAD"), cancellable = true)
     private void onRenderNausea(DrawContext context, float distortionStrength, CallbackInfo ci) {
         if (Modules.get().get(NoRender.class).noNausea()) ci.cancel();
-    }
+    }*/
 }

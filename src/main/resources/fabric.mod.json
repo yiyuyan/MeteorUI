@@ -1,13 +1,14 @@
 {
   "schemaVersion": 1,
-  "name": "Meteor Client",
-  "id": "meteor-client",
+  "name": "Meteor UI",
+  "id": "meteor-ui",
   "version": "${version}",
-  "description": "Based utility mod.",
+  "description": "A UI Mod Based the Meteor Client.",
   "authors": [
     "MineGame159",
     "squidoodly",
-    "seasnail"
+    "seasnail",
+    "KSmc_brigade"
   ],
   "contact": {
     "homepage": "https://meteorclient.com",
@@ -16,34 +17,22 @@
     "discord": "https://meteorclient.com/discord"
   },
   "license": "GPL-3.0",
-  "icon": "assets/meteor-client/icon.png",
+  "icon": "assets/meteor-ui/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
       "meteordevelopment.meteorclient.MeteorClient"
-    ],
-    "modmenu": [
-      "meteordevelopment.meteorclient.ModMenuIntegration"
     ]
   },
   "mixins": [
     "meteor-client.mixins.json",
-    "meteor-client-baritone.mixins.json",
-    "meteor-client-indigo.mixins.json",
-    "meteor-client-sodium.mixins.json",
-    "meteor-client-lithium.mixins.json",
-    "meteor-client-viafabricplus.mixins.json"
+    "meteor-client-sodium.mixins.json"
   ],
   "accessWidener": "meteor-client.accesswidener",
   "custom": {
     "meteor-client:build_number": "${build_number}",
     "meteor-client:color": "145,61,226",
-    "meteor-client:commit": "${commit}",
-    "modmenu": {
-      "links": {
-        "modmenu.discord": "https://meteorclient.com/discord"
-      }
-    }
+    "meteor-client:commit": "${commit}"
   },
   "depends": {
     "java": ">=21",
@@ -51,10 +40,6 @@
     "fabricloader": ">=${loader_version}"
   },
   "breaks": {
-    "optifabric": "*",
-    "feather": "*",
-    "origins": "*",
-    "sodium": "<0.6.12",
-    "morechathistory": "*"
+    "sodium": "<0.6.12"
   }
 }

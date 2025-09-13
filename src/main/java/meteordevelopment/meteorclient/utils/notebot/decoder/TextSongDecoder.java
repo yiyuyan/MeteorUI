@@ -40,7 +40,7 @@ public class TextSongDecoder extends SongDecoder {
 
             String[] parts = data.get(lineNumber).split(":");
             if (parts.length < 2) {
-                notebot.warning("Malformed line %d", lineNumber);
+                //notebot.warning("Malformed line %d", lineNumber);
                 continue;
             }
             int key;
@@ -53,7 +53,7 @@ public class TextSongDecoder extends SongDecoder {
                     type = Integer.parseInt(parts[2]);
                 }
             } catch (NumberFormatException e) {
-                notebot.warning("Invalid character at line %d", lineNumber);
+                //notebot.warning("Invalid character at line %d", lineNumber);
                 continue;
             }
 

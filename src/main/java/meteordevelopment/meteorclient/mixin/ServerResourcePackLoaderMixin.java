@@ -6,7 +6,6 @@
 package meteordevelopment.meteorclient.mixin;
 
 import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.misc.ServerSpoof;
 import net.minecraft.client.resource.server.ServerResourcePackLoader;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerResourcePackLoader.class)
 public abstract class ServerResourcePackLoaderMixin {
-    @Inject(method = "onReloadSuccess", at = @At("TAIL"))
+    /*@Inject(method = "onReloadSuccess", at = @At("TAIL"))
     private void removeInactivePacksTail(CallbackInfo ci) {
         Modules.get().get(ServerSpoof.class).silentAcceptResourcePack = false;
-    }
+    }*/
 }

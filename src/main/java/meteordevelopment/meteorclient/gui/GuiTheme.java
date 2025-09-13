@@ -8,7 +8,6 @@ package meteordevelopment.meteorclient.gui;
 import meteordevelopment.meteorclient.gui.renderer.packer.GuiTexture;
 import meteordevelopment.meteorclient.gui.screens.ModuleScreen;
 import meteordevelopment.meteorclient.gui.screens.ModulesScreen;
-import meteordevelopment.meteorclient.gui.screens.NotebotSongsScreen;
 import meteordevelopment.meteorclient.gui.screens.ProxiesScreen;
 import meteordevelopment.meteorclient.gui.screens.accounts.AccountsScreen;
 import meteordevelopment.meteorclient.gui.tabs.TabScreen;
@@ -233,9 +232,9 @@ public abstract class GuiTheme implements ISerializable<GuiTheme> {
         return new AccountsScreen(this);
     }
 
-    public NotebotSongsScreen notebotSongs() {
+    /*public NotebotSongsScreen notebotSongs() {
         return new NotebotSongsScreen(this);
-    }
+    }*/
 
     public WidgetScreen proxiesScreen() {
         return new ProxiesScreen(this);

@@ -6,13 +6,6 @@
 package meteordevelopment.meteorclient.mixin;
 
 import meteordevelopment.meteorclient.mixininterface.ICamera;
-import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.render.CameraTweaks;
-import meteordevelopment.meteorclient.systems.modules.render.FreeLook;
-import meteordevelopment.meteorclient.systems.modules.render.Freecam;
-import meteordevelopment.meteorclient.systems.modules.render.NoRender;
-import meteordevelopment.meteorclient.systems.modules.world.HighwayBuilder;
-import net.minecraft.block.enums.CameraSubmersionType;
 import net.minecraft.client.render.Camera;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
@@ -22,11 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(Camera.class)
 public abstract class CameraMixin implements ICamera {
@@ -40,7 +29,7 @@ public abstract class CameraMixin implements ICamera {
     @Unique
     private float tickDelta;
 
-    @Inject(method = "getSubmersionType", at = @At("HEAD"), cancellable = true)
+    /*@Inject(method = "getSubmersionType", at = @At("HEAD"), cancellable = true)
     private void getSubmergedFluidState(CallbackInfoReturnable<CameraSubmersionType> ci) {
         if (Modules.get().get(NoRender.class).noLiquidOverlay()) ci.setReturnValue(CameraSubmersionType.NONE);
     }
@@ -58,14 +47,14 @@ public abstract class CameraMixin implements ICamera {
         if (Modules.get().get(CameraTweaks.class).clip()) {
             info.setReturnValue(desiredCameraDistance);
         }
-    }
+    }*/
 
     @Inject(method = "update", at = @At("HEAD"))
     private void onUpdateHead(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo info) {
         this.tickDelta = tickDelta;
     }
 
-    @Inject(method = "update", at = @At("TAIL"))
+    /*@Inject(method = "update", at = @At("TAIL"))
     private void onUpdateTail(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo info) {
         if (Modules.get().isActive(Freecam.class)) {
             this.thirdPerson = true;
@@ -100,7 +89,7 @@ public abstract class CameraMixin implements ICamera {
             args.set(0, freeLook.cameraYaw);
             args.set(1, freeLook.cameraPitch);
         }
-    }
+    }*/
 
     @Override
     public void meteor$setRot(double yaw, double pitch) {

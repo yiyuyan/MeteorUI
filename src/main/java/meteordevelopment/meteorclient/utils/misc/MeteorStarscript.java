@@ -11,8 +11,6 @@ import baritone.api.process.IBaritoneProcess;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.mixin.ClientPlayerInteractionManagerAccessor;
 import meteordevelopment.meteorclient.mixin.MinecraftClientAccessor;
-import meteordevelopment.meteorclient.pathing.BaritoneUtils;
-import meteordevelopment.meteorclient.pathing.PathManagers;
 import meteordevelopment.meteorclient.systems.config.Config;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
@@ -73,7 +71,6 @@ public class MeteorStarscript {
     private static final BlockPos.Mutable BP = new BlockPos.Mutable();
     private static final StringBuilder SB = new StringBuilder();
 
-    @PreInit(dependencies = PathManagers.class)
     public static void init() {
         StandardLib.init(ss);
 
@@ -96,7 +93,7 @@ public class MeteorStarscript {
             .set("prefix", MeteorStarscript::getMeteorPrefix)
         );
 
-        // Baritone
+        /*// Baritone
         if (BaritoneUtils.IS_AVAILABLE) {
             ss.set("baritone", new ValueMap()
                 .set("is_pathing", () -> Value.bool(BaritoneAPI.getProvider().getPrimaryBaritone().getPathingBehavior().isPathing()))
@@ -105,7 +102,7 @@ public class MeteorStarscript {
                 .set("process_name", MeteorStarscript::baritoneProcessName)
                 .set("eta", MeteorStarscript::baritoneETA)
             );
-        }
+        }*/
 
         // Camera
         ss.set("camera", new ValueMap()
@@ -135,13 +132,13 @@ public class MeteorStarscript {
             .set("hunger", () -> Value.number(mc.player != null ? mc.player.getHungerManager().getFoodLevel() : 0))
             .set("saturation", () -> Value.number(mc.player != null ? mc.player.getHungerManager().getSaturationLevel() : 0))
 
-            .set("speed", () -> Value.number(Utils.getPlayerSpeed().horizontalLength()))
-            .set("speed_all", new ValueMap()
+            /*.set("speed", () -> Value.number(Utils.getPlayerSpeed().horizontalLength()))*/
+           /* .set("speed_all", new ValueMap()
                 .set("_toString", () -> Value.string(mc.player != null ? Utils.getPlayerSpeed().toString() : ""))
                 .set("x", () -> Value.number(mc.player != null ? Utils.getPlayerSpeed().x : 0))
                 .set("y", () -> Value.number(mc.player != null ? Utils.getPlayerSpeed().y : 0))
                 .set("z", () -> Value.number(mc.player != null ? Utils.getPlayerSpeed().z : 0))
-            )
+            )*/
 
             .set("breaking_progress", () -> Value.number(mc.interactionManager != null ? ((ClientPlayerInteractionManagerAccessor) mc.interactionManager).meteor$getBreakingProgress() : 0))
             .set("biome", MeteorStarscript::biome)

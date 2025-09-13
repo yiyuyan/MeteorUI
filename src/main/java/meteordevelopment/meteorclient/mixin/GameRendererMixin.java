@@ -5,7 +5,6 @@
 
 package meteordevelopment.meteorclient.mixin;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -13,18 +12,9 @@ import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.render.GetFovEvent;
 import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.meteorclient.events.render.RenderAfterWorldEvent;
-import meteordevelopment.meteorclient.mixininterface.IVec3d;
 import meteordevelopment.meteorclient.renderer.MeteorRenderPipelines;
 import meteordevelopment.meteorclient.renderer.Renderer3D;
-import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.player.LiquidInteract;
-import meteordevelopment.meteorclient.systems.modules.player.NoMiningTrace;
-import meteordevelopment.meteorclient.systems.modules.render.Freecam;
-import meteordevelopment.meteorclient.systems.modules.render.NoRender;
-import meteordevelopment.meteorclient.systems.modules.render.Zoom;
-import meteordevelopment.meteorclient.systems.modules.world.HighwayBuilder;
 import meteordevelopment.meteorclient.utils.Utils;
-import meteordevelopment.meteorclient.utils.entity.fakeplayer.FakePlayerEntity;
 import meteordevelopment.meteorclient.utils.render.NametagUtils;
 import meteordevelopment.meteorclient.utils.render.RenderUtils;
 import net.minecraft.client.MinecraftClient;
@@ -32,11 +22,6 @@ import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.profiler.Profilers;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Final;
@@ -125,7 +110,7 @@ public abstract class GameRendererMixin {
         MeteorClient.EVENT_BUS.post(RenderAfterWorldEvent.get());
     }
 
-    @ModifyReturnValue(method = "findCrosshairTarget", at = @At("RETURN"))
+    /*@ModifyReturnValue(method = "findCrosshairTarget", at = @At("RETURN"))
     private HitResult onUpdateTargetedEntity(HitResult original, @Local HitResult hitResult) {
         if (Modules.get().get(NoMiningTrace.class).canWork(original instanceof EntityHitResult ehr ? ehr.getEntity() : null) && hitResult.getType() == HitResult.Type.BLOCK) {
             return hitResult;
@@ -155,7 +140,7 @@ public abstract class GameRendererMixin {
     @ModifyExpressionValue(method = "renderWorld", at = @At(value = "INVOKE", target = "Ljava/lang/Math;max(FF)F", ordinal = 0))
     private float applyCameraTransformationsMathHelperLerpProxy(float original) {
         return Modules.get().get(NoRender.class).noNausea() ? 0 : original;
-    }
+    }*/
 
     @ModifyReturnValue(method = "getFov", at = @At("RETURN"))
     private float modifyFov(float original) {
@@ -167,7 +152,7 @@ public abstract class GameRendererMixin {
     @Unique
     private boolean freecamSet = false;
 
-    @Inject(method = "updateCrosshairTarget", at = @At("HEAD"), cancellable = true)
+    /*@Inject(method = "updateCrosshairTarget", at = @At("HEAD"), cancellable = true)
     private void updateTargetedEntityInvoke(float tickDelta, CallbackInfo info) {
         Freecam freecam = Modules.get().get(Freecam.class);
         boolean highwayBuilder = Modules.get().isActive(HighwayBuilder.class);
@@ -221,5 +206,5 @@ public abstract class GameRendererMixin {
         if (!Modules.get().get(Freecam.class).renderHands() ||
             !Modules.get().get(Zoom.class).renderHands())
             ci.cancel();
-    }
+    }*/
 }

@@ -16,31 +16,31 @@ public class PostProcessShaders {
 
     @PreInit
     public static void init() {
-        CHAMS = new ChamsShader();
-        ENTITY_OUTLINE = new EntityOutlineShader();
-        STORAGE_OUTLINE = new StorageOutlineShader();
+        /*CHAMS = new ChamsShader();
+        ENTITY_OUTLINE = new EntityOutlineShader();*/
+        //STORAGE_OUTLINE = new StorageOutlineShader();
     }
 
     public static void beginRender() {
-        CHAMS.beginRender();
-        ENTITY_OUTLINE.beginRender();
-        STORAGE_OUTLINE.beginRender();
+        /*CHAMS.beginRender();
+        ENTITY_OUTLINE.beginRender();*/
+        //STORAGE_OUTLINE.beginRender();
     }
 
     public static void endRender() {
-        CHAMS.endRender();
-        ENTITY_OUTLINE.endRender();
+        /*CHAMS.endRender();
+        ENTITY_OUTLINE.endRender();*/
     }
 
     public static void onResized(int width, int height) {
         if (mc == null) return;
 
-        CHAMS.onResized(width, height);
-        ENTITY_OUTLINE.onResized(width, height);
-        STORAGE_OUTLINE.onResized(width, height);
+        /*CHAMS.onResized(width, height);
+        ENTITY_OUTLINE.onResized(width, height);*/
+        //STORAGE_OUTLINE.onResized(width, height);
     }
 
     public static boolean isCustom(VertexConsumerProvider vcp) {
-        return vcp == CHAMS.vertexConsumerProvider || vcp == ENTITY_OUTLINE.vertexConsumerProvider;
+        return false;
     }
 }

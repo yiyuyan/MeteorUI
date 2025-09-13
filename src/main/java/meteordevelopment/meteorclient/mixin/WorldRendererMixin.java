@@ -5,49 +5,12 @@
 
 package meteordevelopment.meteorclient.mixin;
 
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import com.mojang.blaze3d.buffers.GpuBufferSlice;
-import it.unimi.dsi.fastutil.Stack;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import meteordevelopment.meteorclient.mixininterface.IWorldRenderer;
-import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.render.BlockSelection;
-import meteordevelopment.meteorclient.systems.modules.render.ESP;
-import meteordevelopment.meteorclient.systems.modules.render.Freecam;
-import meteordevelopment.meteorclient.systems.modules.render.NoRender;
-import meteordevelopment.meteorclient.utils.render.color.Color;
-import meteordevelopment.meteorclient.utils.render.postprocess.EntityShader;
-import meteordevelopment.meteorclient.utils.render.postprocess.PostProcessShaders;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.render.*;
-import net.minecraft.client.util.Handle;
-import net.minecraft.client.util.ObjectAllocator;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.border.WorldBorder;
-import org.joml.Matrix4f;
-import org.joml.Vector4f;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WorldRenderer.class)
-public abstract class WorldRendererMixin implements IWorldRenderer {
-    @Unique private ESP esp;
+public abstract class WorldRendererMixin {
+   /* @Unique private ESP esp;
 
     @Shadow
     protected abstract void renderEntity(Entity entity, double cameraX, double cameraY, double cameraZ, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers);
@@ -82,11 +45,11 @@ public abstract class WorldRendererMixin implements IWorldRenderer {
 	@Inject(method = "hasBlindnessOrDarkness(Lnet/minecraft/client/render/Camera;)Z", at = @At("HEAD"), cancellable = true)
 	private void hasBlindnessOrDarkness(Camera camera, CallbackInfoReturnable<Boolean> info) {
 		if (Modules.get().get(NoRender.class).noBlindness() || Modules.get().get(NoRender.class).noDarkness()) info.setReturnValue(null);
-	}
+	}*/
 
     // Entity Shaders
 
-    @Inject(method = "render", at = @At("HEAD"))
+    /*@Inject(method = "render", at = @At("HEAD"))
     private void onRenderHead(ObjectAllocator allocator,
                               RenderTickCounter tickCounter,
                               boolean renderBlockOutline,
@@ -102,18 +65,18 @@ public abstract class WorldRendererMixin implements IWorldRenderer {
 
     @Inject(method = "renderEntity", at = @At("HEAD"))
     private void renderEntity(Entity entity, double cameraX, double cameraY, double cameraZ, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, CallbackInfo info) {
-        draw(entity, cameraX, cameraY, cameraZ, tickDelta, vertexConsumers, matrices, PostProcessShaders.CHAMS, Color.WHITE);
-        draw(entity, cameraX, cameraY, cameraZ, tickDelta, vertexConsumers, matrices, PostProcessShaders.ENTITY_OUTLINE, Modules.get().get(ESP.class).getColor(entity));
-    }
+        draw(entity, cameraX, cameraY, cameraZ, tickDelta, vertexConsumers, matrices, PostProcessShaders.CHAMS, Color.WHITE,info);
+        //draw(entity, cameraX, cameraY, cameraZ, tickDelta, vertexConsumers, matrices, PostProcessShaders.ENTITY_OUTLINE, Modules.get().get(ESP.class).getColor(entity));
+    }*/
 
-    @Unique
-    private void draw(Entity entity, double cameraX, double cameraY, double cameraZ, float tickDelta, VertexConsumerProvider vertexConsumers, MatrixStack matrices, EntityShader shader, Color color) {
+    /*@Unique
+    private void draw(Entity entity, double cameraX, double cameraY, double cameraZ, float tickDelta, VertexConsumerProvider vertexConsumers, MatrixStack matrices, EntityShader shader, Color color,CallbackInfo ci) {
         if (shader.shouldDraw(entity) && !PostProcessShaders.isCustom(vertexConsumers) && color != null) {
             meteor$pushEntityOutlineFramebuffer(shader.framebuffer);
             PostProcessShaders.rendering = true;
 
             shader.vertexConsumerProvider.setColor(color.r, color.g, color.b, color.a);
-            renderEntity(entity, cameraX, cameraY, cameraZ, tickDelta, matrices, shader.vertexConsumerProvider);
+            renderEntity(entity, cameraX, cameraY, cameraZ, tickDelta, matrices, shader.vertexConsumerProvider,ci);
 
             PostProcessShaders.rendering = false;
             meteor$popEntityOutlineFramebuffer();
@@ -123,9 +86,9 @@ public abstract class WorldRendererMixin implements IWorldRenderer {
     @Inject(method = "method_62214", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/OutlineVertexConsumerProvider;draw()V"))
     private void onRender(CallbackInfo ci) {
         PostProcessShaders.endRender();
-    }
+    }*/
 
-    @WrapOperation(method = "renderEntities", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/OutlineVertexConsumerProvider;setColor(IIII)V"))
+    /*@WrapOperation(method = "renderEntities", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/OutlineVertexConsumerProvider;setColor(IIII)V"))
     private void setGlowColor(OutlineVertexConsumerProvider instance, int red, int green, int blue, int alpha, Operation<Void> original, @Local LocalRef<Entity> entity) {
         if (!getESP().isGlow() || getESP().shouldSkip(entity.get())) original.call(instance, red, green, blue, alpha);
         else {
@@ -134,25 +97,25 @@ public abstract class WorldRendererMixin implements IWorldRenderer {
             if (color == null) original.call(instance, red, green, blue, alpha);
             else instance.setColor(color.r, color.g, color.b, color.a);
         }
-    }
+    }*/
 
-    @Inject(method = "onResized", at = @At("HEAD"))
+    /*@Inject(method = "onResized", at = @At("HEAD"))
     private void onResized(int width, int height, CallbackInfo info) {
         PostProcessShaders.onResized(width, height);
-    }
+    }*/
 
-    @Unique
+    /*@Unique
     private ESP getESP() {
         if (esp == null) {
             esp = Modules.get().get(ESP.class);
         }
 
         return esp;
-    }
+    }*/
 
     // IWorldRenderer
 
-    @Shadow
+    /*@Shadow
     private Framebuffer entityOutlineFramebuffer;
 
     @Shadow
@@ -184,5 +147,5 @@ public abstract class WorldRendererMixin implements IWorldRenderer {
     public void meteor$popEntityOutlineFramebuffer() {
         this.entityOutlineFramebuffer = framebufferStack.pop();
         this.framebufferSet.entityOutlineFramebuffer = framebufferHandleStack.pop();
-    }
+    }*/
 }

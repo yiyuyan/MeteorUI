@@ -9,7 +9,6 @@ import com.llamalad7.mixinextras.sugar.Local;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.world.PlaySoundEvent;
 import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.misc.SoundBlocker;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundSystem;
 import net.minecraft.client.sound.TickableSoundInstance;
@@ -32,8 +31,8 @@ public abstract class SoundSystemMixin {
         if (event.isCancelled()) cir.cancel();
     }
 
-    @Inject(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/TickableSoundInstance;tick()V", ordinal = 0))
+    /*@Inject(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/TickableSoundInstance;tick()V", ordinal = 0))
     private void onTick(CallbackInfo ci, @Local TickableSoundInstance tickableSoundInstance) {
         if (Modules.get().get(SoundBlocker.class).shouldBlock(tickableSoundInstance)) stop(tickableSoundInstance);
-    }
+    }*/
 }

@@ -22,11 +22,6 @@ import meteordevelopment.meteorclient.gui.WidgetScreen;
 import meteordevelopment.meteorclient.mixininterface.IMinecraftClient;
 import meteordevelopment.meteorclient.systems.config.Config;
 import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.movement.GUIMove;
-import meteordevelopment.meteorclient.systems.modules.player.FastUse;
-import meteordevelopment.meteorclient.systems.modules.player.Multitask;
-import meteordevelopment.meteorclient.systems.modules.render.ESP;
-import meteordevelopment.meteorclient.systems.modules.world.HighwayBuilder;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.misc.CPSUtils;
 import meteordevelopment.meteorclient.utils.misc.MeteorStarscript;
@@ -149,7 +144,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
 
     @WrapOperation(method = "setScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/KeyBinding;unpressAll()V"))
     private void onSetScreenKeyBindingUnpressAll(Operation<Void> op) {
-        Modules modules = Modules.get();
+        /*Modules modules = Modules.get();
         if (modules == null) {
             op.call();
             return;
@@ -171,15 +166,15 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
             if (guimove.sprint.get() && kb == options.sprintKey) continue;
             if (guimove.jump.get() && kb == options.jumpKey) continue;
             ((KeyBindingAccessor) kb).meteor$invokeReset();
-        }
+        }*/
     }
 
     @Inject(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isItemEnabled(Lnet/minecraft/resource/featuretoggle/FeatureSet;)Z"))
     private void onDoItemUseHand(CallbackInfo ci, @Local ItemStack itemStack) {
-        FastUse fastUse = Modules.get().get(FastUse.class);
+        /*FastUse fastUse = Modules.get().get(FastUse.class);
         if (fastUse.isActive()) {
             itemUseCooldown = fastUse.getItemUseCooldown(itemStack);
-        }
+        }*/
     }
 
     @ModifyExpressionValue(method = "doItemUse", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;crosshairTarget:Lnet/minecraft/util/hit/HitResult;", ordinal = 1))
@@ -215,8 +210,9 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
 
     @Unique
     private boolean HB$stopUsingItem() {
-        HighwayBuilder b = Modules.get().get(HighwayBuilder.class);
-        return !b.isActive() || !b.drawingBow;
+        /*HighwayBuilder b = Modules.get().get(HighwayBuilder.class);
+        return !b.isActive() || !b.drawingBow;*/
+        return false;
     }
 
     @Inject(method = "onResolutionChanged", at = @At("TAIL"))
@@ -241,7 +237,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
 
     // Multitask
 
-    @ModifyExpressionValue(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;isBreakingBlock()Z"))
+    /*@ModifyExpressionValue(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;isBreakingBlock()Z"))
     private boolean doItemUseModifyIsBreakingBlock(boolean original) {
         return !Modules.get().isActive(Multitask.class) && original;
     }
@@ -254,26 +250,26 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
     @ModifyExpressionValue(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z", ordinal = 0))
     private boolean handleInputEventsModifyIsUsingItem(boolean original) {
         return !Modules.get().get(Multitask.class).attackingEntities() && original;
-    }
+    }*/
 
-    @Inject(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z", ordinal = 0, shift = At.Shift.BEFORE))
+    /*@Inject(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z", ordinal = 0, shift = At.Shift.BEFORE))
     private void handleInputEventsInjectStopUsingItem(CallbackInfo info) {
         if (Modules.get().get(Multitask.class).attackingEntities() && player.isUsingItem()) {
             if (!options.useKey.isPressed() && HB$stopUsingItem()) interactionManager.stopUsingItem(player);
             while (options.useKey.wasPressed());
         }
     }
-
+*/
     // Glow esp
 
-    @ModifyReturnValue(method = "hasOutline", at = @At("RETURN"))
+    /*@ModifyReturnValue(method = "hasOutline", at = @At("RETURN"))
     private boolean hasOutlineModifyIsOutline(boolean original, Entity entity) {
         ESP esp = Modules.get().get(ESP.class);
         if (esp == null) return original;
         if (!esp.isGlow() || esp.shouldSkip(entity)) return original;
 
         return esp.getColor(entity) != null || original;
-    }
+    }*/
 
     // Interface
 

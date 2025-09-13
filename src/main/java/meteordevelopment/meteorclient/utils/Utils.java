@@ -16,8 +16,6 @@ import meteordevelopment.meteorclient.mixin.*;
 import meteordevelopment.meteorclient.mixininterface.IMinecraftClient;
 import meteordevelopment.meteorclient.settings.StatusEffectAmplifierMapSetting;
 import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.render.BetterTooltips;
-import meteordevelopment.meteorclient.systems.modules.world.Timer;
 import meteordevelopment.meteorclient.utils.misc.Names;
 import meteordevelopment.meteorclient.utils.player.EChestMemory;
 import meteordevelopment.meteorclient.utils.render.PeekScreen;
@@ -101,7 +99,7 @@ public class Utils {
         }
     }
 
-    public static Vec3d getPlayerSpeed() {
+    /*public static Vec3d getPlayerSpeed() {
         if (mc.player == null) return Vec3d.ZERO;
 
         double tX = mc.player.getX() - mc.player.lastX;
@@ -120,7 +118,7 @@ public class Utils {
         tZ *= 20;
 
         return new Vec3d(tX, tY, tZ);
-    }
+    }*/
 
     public static String getWorldTime() {
         if (mc.world == null) return "00:00";
@@ -291,7 +289,7 @@ public class Utils {
         }
     }
 
-    public static Color getShulkerColor(ItemStack shulkerItem) {
+    /*public static Color getShulkerColor(ItemStack shulkerItem) {
         if (shulkerItem.getItem() instanceof BlockItem blockItem) {
             Block block = blockItem.getBlock();
             if (block == Blocks.ENDER_CHEST) return BetterTooltips.ECHEST_COLOR;
@@ -306,7 +304,7 @@ public class Utils {
         }
 
         return WHITE;
-    }
+    }*/
 
     @SuppressWarnings("deprecation") // Use of NbtCompound#getNbt
     public static boolean hasItems(ItemStack itemStack) {

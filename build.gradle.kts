@@ -34,6 +34,12 @@ repositories {
         name = "ViaVersion"
         url = uri("https://repo.viaversion.com")
     }
+    maven{
+        url = uri("https://lss233.littleservice.cn/repositories/gradle-dist/");
+    }
+    maven {
+        url = uri("https://lss233.littleservice.cn/repositories/minecraft/")
+    }
     mavenCentral()
 
     exclusiveContent {
@@ -46,6 +52,11 @@ repositories {
         filter {
             includeGroup("maven.modrinth")
         }
+    }
+
+    maven {
+        name = "CurseForgeMaven"
+        url = uri("https://cursemaven.com")
     }
 }
 
@@ -100,6 +111,12 @@ dependencies {
     library("io.netty:netty-handler-proxy:${properties["netty_version"] as String}") { isTransitive = false }
     library("io.netty:netty-codec-socks:${properties["netty_version"] as String}") { isTransitive = false }
     library("de.florianmichael:WaybackAuthLib:${properties["waybackauthlib_version"] as String}")
+
+    modImplementation("net.fabricmc.fabric-api:fabric-lifecycle-events-v1:2.6.2+db4dfd859c")
+    modImplementation("net.fabricmc.fabric-api:fabric-screen-api-v1:2.0.50+908cbc919c")
+    modImplementation("net.fabricmc.fabric-api:fabric-key-binding-api-v1:1.0.64+9ec45cd89c")
+
+    modImplementation("curse.maven:modmenu-308702:6946098")
 
     // Launch sub project
     shadow(project(":launch"))
@@ -202,7 +219,7 @@ publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
-            artifactId = "meteor-client"
+            artifactId = "meteor-ui"
 
             version = properties["minecraft_version"] as String + "-SNAPSHOT"
         }

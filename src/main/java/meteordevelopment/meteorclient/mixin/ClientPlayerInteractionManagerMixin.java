@@ -5,29 +5,22 @@
 
 package meteordevelopment.meteorclient.mixin;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.entity.DropItemsEvent;
 import meteordevelopment.meteorclient.events.entity.player.*;
 import meteordevelopment.meteorclient.mixininterface.IClientPlayerInteractionManager;
-import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.player.BreakDelay;
-import meteordevelopment.meteorclient.systems.modules.player.SpeedMine;
 import meteordevelopment.meteorclient.utils.world.BlockUtils;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -64,7 +57,7 @@ public abstract class ClientPlayerInteractionManagerMixin implements IClientPlay
         }
     }
 
-    @Inject(method = "attackBlock", at = @At("HEAD"), cancellable = true)
+    /*@Inject(method = "attackBlock", at = @At("HEAD"), cancellable = true)
     private void onAttackBlock(BlockPos blockPos, Direction direction, CallbackInfoReturnable<Boolean> info) {
         if (MeteorClient.EVENT_BUS.post(StartBreakingBlockEvent.get(blockPos, direction)).isCancelled()) info.cancel();
         else {
@@ -81,7 +74,7 @@ public abstract class ClientPlayerInteractionManagerMixin implements IClientPlay
             }
         }
     }
-
+*/
     @Inject(method = "interactBlock", at = @At("HEAD"), cancellable = true)
     public void interactBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
         if (MeteorClient.EVENT_BUS.post(InteractBlockEvent.get(player.getMainHandStack().isEmpty() ? Hand.OFF_HAND : hand, hitResult)).isCancelled()) cir.setReturnValue(ActionResult.FAIL);
@@ -120,7 +113,7 @@ public abstract class ClientPlayerInteractionManagerMixin implements IClientPlay
         blockBreakingCooldown = event.cooldown;
     }
 
-    @ModifyExpressionValue(method = "method_41930", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;calcBlockBreakingDelta(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)F"))
+    /*@ModifyExpressionValue(method = "method_41930", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;calcBlockBreakingDelta(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)F"))
     private float modifyBlockBreakingDelta(float original) {
         if (Modules.get().get(BreakDelay.class).preventInstaBreak() && original >= 1) {
             BlockBreakingCooldownEvent event = MeteorClient.EVENT_BUS.post(BlockBreakingCooldownEvent.get(blockBreakingCooldown));
@@ -128,7 +121,7 @@ public abstract class ClientPlayerInteractionManagerMixin implements IClientPlay
             return 0;
         }
         return original;
-    }
+    }*/
 
     @Inject(method = "breakBlock", at = @At("HEAD"), cancellable = true)
     private void onBreakBlock(BlockPos blockPos, CallbackInfoReturnable<Boolean> info) {

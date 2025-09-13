@@ -7,6 +7,7 @@ package meteordevelopment.meteorclient.utils;
 
 import meteordevelopment.meteorclient.addons.AddonManager;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
+import meteordevelopment.meteorclient.renderer.Fonts;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 

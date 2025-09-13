@@ -66,6 +66,7 @@ public class RainbowColors {
 
     @EventHandler
     private static void onTick(TickEvent.Post event) {
+        if(Config.get()==null) return;
         GLOBAL.setSpeed(Config.get().rainbowSpeed.get() / 100);
         GLOBAL.getNext();
 
